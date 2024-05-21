@@ -12,7 +12,8 @@ class SessionController extends AbstractController
     #[Route('/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
-        $sessions = $sessionRepository->findAll();
+        // SELECT * FROM session ORDER BY intitule ASC
+        $sessions = $sessionRepository->findBy([], ["intitule" => "ASC"]);
         return $this->render('session/index.html.twig', [
             'sessions' => $sessions
         ]);

@@ -16,7 +16,8 @@ class ApprenantController extends AbstractController
     public function index(ApprenantRepository $apprenantRepository): Response
     {
         // $apprenants = $entityManager->getRepository(Apprenant::class)->findAll();
-        $apprenants = $apprenantRepository->findAll();
+        // SELECT * FROM apprenant ORDER BY nom ASC
+        $apprenants = $apprenantRepository->findBy([], ["nom" => "ASC"]);
         return $this->render('apprenant/index.html.twig', [
             'apprenants' => $apprenants
         ]);

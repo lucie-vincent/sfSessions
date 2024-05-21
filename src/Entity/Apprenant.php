@@ -148,6 +148,6 @@ class Apprenant
 
     public function __toString()
     {
-        return $this->nom." ".$this->prenom." (".$this->email.")";
+        return $this->prenom." ".$this->nom." (".$this->email.")";
     }
 }
