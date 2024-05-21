@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des unités{% endblock %}
+
+{% block body %}
+<h1>Liste des unités</h1>
+
+{% for unite in unites %}
+   {{ unite }}  ({{unite.categorie}}) <br>
+{% endfor %}
+{% endblock %}
