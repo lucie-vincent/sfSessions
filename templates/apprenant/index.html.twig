@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des apprenants {% endblock %}
+
+{% block body %}
+
+<h1>Liste des apprenants</h1>
+
+{% for apprenant in apprenants %}
+   {{ apprenant }} <br>
+{% endfor %}
+
+{% endblock %}
