@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un apprenant {% endblock %}
+
+{% block body %}
+<h1>Fiche apprenant</h1>
+
+<h2>{{ apprenant }}</h2>
+
+<p>
+    {# on utilise un filtre Twig pour formater la date afin de l'afficher #}
+    Date de naissance : {{ apprenant.dateNaissance | date("d-m-Y") }} <br>
+    Ville : {{ apprenant.ville }} <br>
+    Téléphone : {{ apprenant.telephone }} <br>
+    Email : {{ apprenant.email }} <br>
+</p>
+
+<h2>Sessions prévues</h2>
+{% for session in apprenant.sessions %}
+   <b> {{ session}} </b> du <i> {{ session.dateDebut | date("d-m-Y") }} </i> au <i> {{ session.dateFin | date("d-m-Y") }} </i> <br>
+{% endfor %}
+{% endblock %}

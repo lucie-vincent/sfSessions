@@ -22,4 +22,12 @@ class ApprenantController extends AbstractController
             'apprenants' => $apprenants
         ]);
     }
+
+    #[Route('/apprenant/{id}', name: 'show_apprenant')]
+    public function show(Apprenant $apprenant): Response
+    {
+        return $this->render('apprenant/show.html.twig', [
+            'apprenant' => $apprenant
+        ]);
+    }
 }
