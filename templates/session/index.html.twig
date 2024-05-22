@@ -5,7 +5,31 @@
 {% block body %}
 <h1>Prochaines sessions</h1>
 
-{% for session in sessions %}
-    {{ session }} <br>
-{% endfor %}
+<table>
+    <thead>
+        <tr>
+            <th>Intitulé Session</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Nombre de places</th>
+            <th>Nombre de places réservées</th>
+            <th>Nombre de places disponibles</th>
+            <th>Détail programme</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td> {{ session }} </td>
+                <td> {{ session.dateDebut | date("d-m-Y") }} </td>
+                <td> {{ session.dateFin | date("d-m-Y") }} </td>
+                <td> {{ session.nbPlaces }} </td>
+                <td>  </td>
+                <td>  </td>
+                <td> <i class="ri-book-read-line"></i> </td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
