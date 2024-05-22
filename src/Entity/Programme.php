@@ -64,4 +64,10 @@ class Programme
 
         return $this;
     }
+    public function __toString(): string
+    {
+        
+
+        return $this->getUnite() . " | " . $this->getDuree(). "J";
+    }
 }
