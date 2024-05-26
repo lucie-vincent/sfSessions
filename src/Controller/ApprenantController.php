@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApprenantController extends AbstractController
 {
@@ -29,5 +30,11 @@ class ApprenantController extends AbstractController
         return $this->render('apprenant/show.html.twig', [
             'apprenant' => $apprenant
         ]);
+    }
+
+    #[Route('/apprenant/new', name: 'new_apprenant')]
+    public function new(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        
     }
 }

@@ -23,8 +23,8 @@
                 <td> {{ session.dateDebut | date("d-m-Y") }} </td>
                 <td> {{ session.dateFin | date("d-m-Y") }} </td>
                 <td> {{ session.nbPlaces }} </td>
-                <td>  </td>
-                <td>  </td>
+                <td> {{ session.apprenants | length }} </td>
+                <td> {{ session.nbPlaces - session.apprenants | length }} </td>
                 {# <td> {{ session.programmes | first }} </td> #}
             </tr>
             {% endfor %}

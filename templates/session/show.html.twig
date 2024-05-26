@@ -23,4 +23,14 @@
     </tbody>
 </table>
 
+<h2>Liste des inscrits</h2>
+<span>Nombre d'inscrits : {{ session.apprenants | length }} / {{ session.nbPlaces }} </span>
+<ul>
+    {% for apprenant in session.apprenants %}
+        
+    <li> {{ apprenant }} </li>
+    {% endfor %}
+</ul>
+
+
 {% endblock %}

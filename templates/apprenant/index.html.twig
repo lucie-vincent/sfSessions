@@ -8,4 +8,7 @@
 {% for apprenant in apprenants %}
    <a href="{{ path('show_apprenant', {'id': apprenant.id}) }}"> {{ apprenant }} ({{ apprenant.email }}) </a> <br>
 {% endfor %}
+
+<br>
+<a href="">Ajouter un apprenant</a>
 {% endblock %}

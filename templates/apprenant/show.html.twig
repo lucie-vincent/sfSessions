@@ -19,4 +19,5 @@
 {% for session in apprenant.sessions %}
    <b> {{ session}} </b> du <i> {{ session.dateDebut | date("d-m-Y") }} </i> au <i> {{ session.dateFin | date("d-m-Y") }} </i> <br>
 {% endfor %}
+
 {% endblock %}
