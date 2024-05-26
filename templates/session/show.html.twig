@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de {{ session.intitule }}{% endblock %}
+
+{% block body %}
+<h1>Détail de {{ session.intitule }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Unité</th>
+            <th>Durée</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for programme in session.programmes %}
+            <tr>
+                <td>{{ programme.unite }}  </td>
+                <td> {{ programme.duree }} jour(s) </td>
+                {# <td> {{ session.programmes | first }} </td> #}
+            </tr>
+            {% endfor %} 
+    </tbody>
+</table>
+
+{% endblock %}

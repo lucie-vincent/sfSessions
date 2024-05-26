@@ -19,11 +19,11 @@ class ProgrammeController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/programme/{id}', name: 'show_programme')]
-    public function show(Programme $programme): Response
-    {
-        return $this->render('programme/show.html.twig', [
-            'programme' => $programme
-        ]);
-    }
+    // #[Route('/programme/{id}', name: 'show_programme')]
+    // public function show(Programme $programme): Response
+    // {
+    //     return $this->render('programme/show.html.twig', [
+    //         'programme' => $programme
+    //     ]);
+    // }
 }

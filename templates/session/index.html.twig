@@ -14,19 +14,18 @@
             <th>Nombre de places</th>
             <th>Nombre de places réservées</th>
             <th>Nombre de places disponibles</th>
-            <th>Détail programme</th>
         </tr>
     </thead>
     <tbody>
             {% for session in sessions %}
             <tr>
-                <td> {{ session }} </td>
+                <td> <a href="{{ path('show_session', {'id': session.id}) }}"> {{ session }} </a> </td>
                 <td> {{ session.dateDebut | date("d-m-Y") }} </td>
                 <td> {{ session.dateFin | date("d-m-Y") }} </td>
                 <td> {{ session.nbPlaces }} </td>
                 <td>  </td>
                 <td>  </td>
-                <td> {{ session.programmes | first }} </td>
+                {# <td> {{ session.programmes | first }} </td> #}
             </tr>
             {% endfor %}
     </tbody>
