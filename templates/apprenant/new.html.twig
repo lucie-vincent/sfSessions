@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un apprenant {% endblock %}
+
+{% block body %}
+    <h1>Ajouter un apprenant</h1>
+
+    {# on utilise la fonction form() pour rendre le formulaire "formAddApprenant" #}
+    {{ form(formAddApprenant) }}
+{% endblock %}
