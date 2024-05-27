@@ -20,4 +20,5 @@
    <b> {{ session}} </b> du <i> {{ session.dateDebut | date("d-m-Y") }} </i> au <i> {{ session.dateFin | date("d-m-Y") }} </i> <br>
 {% endfor %}
 
+<a href="{{ path('edit_apprenant', {'id': apprenant.id}) }}">Editer</a>
 {% endblock %}

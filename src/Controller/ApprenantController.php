@@ -26,10 +26,14 @@ class ApprenantController extends AbstractController
     }
     
     #[Route('/apprenant/new', name: 'new_apprenant')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/apprenant/{id}/edit', name: 'edit_apprenant')]
+    public function new_edit(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // on crée un nouvel objet Apprenant
-        $apprenant = new Apprenant();
+        // si l'apprenant n'existe pas
+        if(!$apprenant){
+            // on crée un nouvel objet Apprenant
+            $apprenant = new Apprenant();
+        }
 
         // la méthode createForm permet de créer le formulaire
         // on attribue au formulaire les propriétés de l'objet Apprenant nouvellement créé
@@ -57,6 +61,7 @@ class ApprenantController extends AbstractController
         // on renvoie à la vue les données
         return $this->render('apprenant/new.html.twig', [
             'formAddApprenant' => $form,
+            'edit' => $apprenant->getId()
         ]);
     }
 
