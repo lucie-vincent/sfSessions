@@ -35,6 +35,8 @@ class Session
      * @var Collection<int, Apprenant>
      */
     #[ORM\ManyToMany(targetEntity: Apprenant::class, mappedBy: 'sessions')]
+    // on ajoute cette annotation sur la collection d'employés pour trier les apprenants par nom
+    #[ORM\OrderBy(["nom" => "ASC"])]
     private Collection $apprenants;
 
     /**

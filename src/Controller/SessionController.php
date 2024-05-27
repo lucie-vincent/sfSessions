@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,7 +24,7 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/new', name: 'new_session')]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // on crée un nouvel objet session
         $session = new Session();
@@ -31,6 +32,25 @@ class SessionController extends AbstractController
         // la méthode createForm permet de créer le formulaire
         // on attribue au formulaire les propriétés de l'objet session nouvellement créé
         $form = $this->createForm(SessionType::class, $session);
+
+        // on traite la soumission du formulaire
+        $form->handleRequest($request);
+
+        // si le formulaire a été soumis et qu'il est valide:
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // alors on récupère les données du formulaire et on les transmet à l'objet Apprenant
+            $session = $form->getData();
+
+            // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+            $entityManager->persist($session);
+
+            // Doctrine exécute la requête (i.e. the INSERT query)
+            $entityManager->flush();
+
+            // on redirige vers la liste des sessions
+            return $this->redirectToRoute('app_session');
+        }
 
         // on renvoie à la vue les données
         return $this->render('session/new.html.twig', [

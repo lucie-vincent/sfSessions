@@ -38,6 +38,8 @@ class Apprenant
      * @var Collection<int, Session>
      */
     #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'apprenants')]
+    // on ajoute cette annotation sur la collection d'employés pour trier les sessions par nom
+    #[ORM\OrderBy(["intitule" => "ASC"])]
     private Collection $sessions;
 
     public function __construct()

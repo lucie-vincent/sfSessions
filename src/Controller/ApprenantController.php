@@ -26,7 +26,7 @@ class ApprenantController extends AbstractController
     }
     
     #[Route('/apprenant/new', name: 'new_apprenant')]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // on crée un nouvel objet Apprenant
         $apprenant = new Apprenant();
@@ -34,6 +34,25 @@ class ApprenantController extends AbstractController
         // la méthode createForm permet de créer le formulaire
         // on attribue au formulaire les propriétés de l'objet Apprenant nouvellement créé
         $form = $this->createForm(ApprenantType::class, $apprenant);
+
+        // on traite la soumission du formulaire
+        $form->handleRequest($request);
+
+        // si le formulaire a été soumis et qu'il est valide:
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // alors on récupère les données du formulaire et on les transmet à l'objet Apprenant
+            $apprenant = $form->getData();
+
+            // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+            $entityManager->persist($apprenant);
+
+            // Doctrine exécute la requête (i.e. the INSERT query)
+            $entityManager->flush();
+
+            // on redirige vers la liste des apprenants
+            return $this->redirectToRoute('app_apprenant');
+        }
 
         // on renvoie à la vue les données
         return $this->render('apprenant/new.html.twig', [
