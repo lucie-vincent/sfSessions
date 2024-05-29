@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Session;
 use App\Entity\Apprenant;
 use App\Entity\Programme;
+use App\Entity\Unite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -42,14 +43,19 @@ class SessionType extends AbstractType
                     'class' => 'form-control' 
                 ]
             ])
-            ->add('programmes', EntityType::class, [
-                'class' => Programme::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 'form-control' 
-                ]
-            ])
+            // ->add('programmes', EntityType::class, [
+            //     'class' => Programme::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            //     'attr' => [
+            //         'class' => 'form-control' 
+            //     ]
+            // ])
+            // ->add('programmes', EntityType::class, [
+            //     'class' => Unite::class,
+            //     'choice_label' => 'intitule'
+            // ])
+
             // ->add('estCloturee', CheckboxType::class, [
             //     'required' => false,
             // ])
