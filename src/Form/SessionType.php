@@ -33,9 +33,9 @@ class SessionType extends AbstractType
             //     'choice_label' => 'id',
             //     'multiple' => true,
             // ])
-            ->add('estCloturee', CheckboxType::class, [
-                'required' => false,
-            ])
+            // ->add('estCloturee', CheckboxType::class, [
+            //     'required' => false,
+            // ])
             ->add('Valider', SubmitType::class)
         ;
     }

@@ -22,7 +22,7 @@ class Session
     #[ORM\Column]
     private ?int $nbPlaces = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $estCloturee = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

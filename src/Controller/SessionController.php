@@ -63,6 +63,18 @@ class SessionController extends AbstractController
         ]);
     }
 
+    #[Route('/session/{id}/delete', name: 'delete_session')]
+    public function delete(Session $session, EntityManagerInterface $entityManager)
+    {
+        // Doctrine prépare (persiste) la requête
+        $entityManager->remove($session);
+        // Doctrine exécute la requête : "DELETE FROM session WHERE session..."
+        $entityManager->flush();
+        
+        // on redirige vers la liste des sessions
+        return $this->redirectToRoute('app_session');
+    }
+
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session): Response
     {

@@ -57,13 +57,26 @@ class ApprenantController extends AbstractController
             // on redirige vers la liste des apprenants
             return $this->redirectToRoute('app_apprenant');
         }
-
+        
         // on renvoie à la vue les données
         return $this->render('apprenant/new.html.twig', [
             'formAddApprenant' => $form,
             'edit' => $apprenant->getId()
         ]);
     }
+    
+    #[Route('/apprenant/{id}/delete', name: 'delete_apprenant')]
+    public function delete(Apprenant $apprenant, EntityManagerInterface $entityManager)
+    {
+        // Doctrine prépare (persiste) la requête
+        $entityManager->remove($apprenant);
+        // Doctrine exécute la requête : "DELETE FROM apprenant WHERE apprenant..."
+        $entityManager->flush();
+        
+        // on redirige vers la liste des apprenants
+        return $this->redirectToRoute('app_apprenant');
+    }
+
 
     // cette route avec l'id est en dernier car il y a un ordre de priorité dans les routes
     #[Route('/apprenant/{id}', name: 'show_apprenant')]
