@@ -5,32 +5,34 @@
 {% block body %}
 <h1>Prochaines sessions</h1>
 
-<table>
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Intitulé Session</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
-            <th>Nombre de places</th>
-            <th>Nombre de places réservées</th>
-            <th>Nombre de places disponibles</th>
+            <th scope="col">Intitulé Session</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Nombre de places</th>
+            <th scope="col">Nombre de places réservées</th>
+            <th scope="col">Nombre de places disponibles</th>
         </tr>
     </thead>
     <tbody>
             {% for session in sessions %}
             <tr>
-                <td> <a href="{{ path('show_session', {'id': session.id}) }}"> {{ session }} </a> </td>
-                <td> {{ session.dateDebut | date("d-m-Y") }} </td>
-                <td> {{ session.dateFin | date("d-m-Y") }} </td>
-                <td> {{ session.nbPlaces }} </td>
-                <td> {{ session.apprenants | length }} </td>
-                <td> {{ session.nbPlaces - session.apprenants | length }} </td>
+                <td class="table-primary"> <a href="{{ path('show_session', {'id': session.id}) }}"> {{ session }} </a> </td>
+                <td class="table-primary"> {{ session.dateDebut | date("d-m-Y") }} </td>
+                <td class="table-primary"> {{ session.dateFin | date("d-m-Y") }} </td>
+                <td class="table-primary"> {{ session.nbPlaces }} </td>
+                <td class="table-primary"> {{ session.apprenants | length }} </td>
+                <td class="table-primary"> {{ session.nbPlaces - session.apprenants | length }} </td>
                 {# <td> {{ session.programmes | first }} </td> #}
             </tr>
             {% endfor %}
     </tbody>
 </table>
 
-<a href="{{ path('new_session')}}">Ajouter une session</a>
+<button type="button" class="btn btn-primary">
+    <a href="{{ path('new_session')}}">Ajouter une session</a>
+</button>
 
 {% endblock %}

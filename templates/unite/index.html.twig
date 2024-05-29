@@ -4,8 +4,11 @@
 
 {% block body %}
 <h1>Liste des unités</h1>
-
-{% for unite in unites %}
-   {{ unite }}  ({{unite.categorie}}) <br>
-{% endfor %}
+   <ul class="list-group">
+      {% for unite in unites %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+         {{ unite }}  ({{unite.categorie}})
+      </li>
+      {% endfor %} 
+   </ul>
 {% endblock %}

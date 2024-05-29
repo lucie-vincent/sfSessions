@@ -5,18 +5,18 @@
 {% block body %}
 <h1>Détail de {{ session.intitule }}</h1>
 
-<table>
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Unité</th>
-            <th>Durée</th>
+            <th scope="col">Unité</th>
+            <th scope="col">Durée</th>
         </tr>
     </thead>
     <tbody>
             {% for programme in session.programmes %}
             <tr>
-                <td>{{ programme.unite }}  </td>
-                <td> {{ programme.duree }} jour(s) </td>
+                <td class="table-primary">{{ programme.unite }}  </td>
+                <td class="table-primary"> {{ programme.duree }} jour(s) </td>
                 {# <td> {{ session.programmes | first }} </td> #}
             </tr>
             {% endfor %} 
@@ -25,15 +25,20 @@
 
 <h2>Liste des inscrits</h2>
 <span>Nombre d'inscrits : {{ session.apprenants | length }} / {{ session.nbPlaces }} </span>
-<ul>
+<ul class="list-group">
     {% for apprenant in session.apprenants %}
         
-    <li> {{ apprenant }} </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center"> {{ apprenant }} </li>
     {% endfor %}
 </ul>
 
-<a href="{{ path('edit_session', {'id': session.id}) }}">Editer</a>
-<a href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
+<button type="button" class="btn btn-primary">
+    <a href="{{ path('edit_session', {'id': session.id}) }}">Editer</a>
+</button>
+
+<button type="button" class="btn btn-primary">
+    <a href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
+</button>
 
 
 {% endblock %}

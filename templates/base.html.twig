@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
         {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/morph/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
 
         {% block javascripts %}
@@ -13,12 +14,15 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="{{ path('app_apprenant') }}">Liste des apprenants</a></li>
-                <li><a href="{{ path('app_session') }}">Liste des sessions</a></li>
-                <li><a href="{{ path('app_unite') }}">Liste des unités</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Minerva</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_apprenant') }}">Liste des apprenants</a></li>
+                    <li class="nav-item"><a class="nav-link"  href="{{ path('app_session') }}">Liste des sessions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_unite') }}">Liste des unités</a></li>
+                </ul>
+            </div>
         </nav>
         {% block body %}{% endblock %}
     </body>

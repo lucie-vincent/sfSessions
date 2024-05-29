@@ -11,7 +11,16 @@
     {% endif %}
 
     {# on utilise la fonction form() pour rendre le formulaire "formAddApprenant" #}
-    {{ form(formAddApprenant) }}
+    {# {{ form(formAddApprenant) }} #}
 
-   
+    {{ form_start(formAddApprenant) }}
+        {{ form_row(formAddApprenant.nom) }}
+        {{ form_row(formAddApprenant.prenom) }}
+        {{ form_row(formAddApprenant.email) }}
+        {{ form_row(formAddApprenant.dateNaissance) }}
+        {{ form_row(formAddApprenant.telephone) }}
+        {{ form_row(formAddApprenant.ville) }}
+        {{ form_row(formAddApprenant.sessions) }}   
+    {{ form_end(formAddApprenant) }}
+            
 {% endblock %}

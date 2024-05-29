@@ -19,20 +19,50 @@ class ApprenantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('dateNaissance', DateType::class, [
                 'widget' => 'single_text',
+                'attr' => [
+                   'class' => 'form-control'
+                ] 
             ])
-            ->add('telephone', TelType::class)
-            ->add('ville', TextType::class)
+            ->add('telephone', TelType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('ville', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('sessions', EntityType::class, [
                 'class' => Session::class,
                 'choice_label' => 'intitule',
                 'multiple' => true,
+                'attr' => [
+                    'class' => 'form-select'
+                ]
             ])
-            ->add('Valider', SubmitType::class)
+            ->add('Valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success btn-formulaire'
+                ]
+            ])
         ;
     }
 

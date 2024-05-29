@@ -1,0 +1,13 @@
+a {
+    text-decoration: none;
+}
+
+form {
+    width: 50%;
+    min-width: 280px;
+    margin: 0 auto;
+}
+
+.btn-formulaire {
+    margin-top: 0.5rem;
+}
