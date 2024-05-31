@@ -3,38 +3,61 @@
 {% block title %}Détail de {{ session.intitule }}{% endblock %}
 
 {% block body %}
-<h1>Détail de {{ session.intitule }}</h1>
+<h1>Détail de {{ session.intitule }} </h1>
 
-<table class="table table-hover list-unites-session">
-    <thead>
-        <tr>
-            <th scope="col">Unité</th>
-            <th scope="col">Durée</th>
-        </tr>
-    </thead>
-    <tbody>
-            {% for programme in session.programmes %}
+<div class="detail">
+    <p>
+        Date de Début : {{ session.dateDebut | date("d-m-Y") }} <br>
+        Date de fin : {{ session.dateFin | date("d-m-Y") }}
+    </p>
+</div>
+
+<div class="programme">
+    <table class="table table-hover list-unites-session">
+        <thead>
             <tr>
-                <td class="table-primary">{{ programme.unite }}  </td>
-                <td class="table-primary"> {{ programme.duree }} jour(s) </td>
-                {# <td> {{ session.programmes | first }} </td> #}
+                <th scope="col">Unité</th>
+                <th scope="col">Durée</th>
             </tr>
-            {% endfor %} 
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+                {% for programme in session.programmes %}
+                <tr>
+                    <td class="table-primary">{{ programme.unite }}  </td>
+                    <td class="table-primary"> {{ programme.duree }} jour(s) </td>
+                    {# <td> {{ session.programmes | first }} </td> #}
+                </tr>
+                {% endfor %} 
+        </tbody>
+    </table>
+</div>
 
-<h2>Liste des inscrits</h2>
-<span>Nombre d'inscrits : {{ session.apprenants | length }} / {{ session.nbPlaces }} </span>
-<div class="liste-incrits">
-    <ul class="list-group list-apprenants-session">
-        {% for apprenant in session.apprenants %}
-            
-        <li class="list-group-item d-flex justify-content-between align-items-center"> <a href="{{ path('show_apprenant', {'id':apprenant.id} ) }}"> {{ apprenant }} </a>  </li>
+<div class="inscrits">
+    <h2>Liste des inscrits</h2>
+    <span>Nombre d'inscrits : {{ session.apprenants | length }} / {{ session.nbPlaces }} </span>
+    <div class="liste-incrits">
+        <ul class="list-group list-apprenants-session">
+            {% for apprenant in session.apprenants %}
+                
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ path('show_apprenant', {'id':apprenant.id} ) }}"> {{ apprenant }} </a>  
+                <a class="btn btn-outline-danger" href="{{ path('unsubscribe_session', {'session': session.id, 'apprenant' : apprenant.id}) }}">X</a> 
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="apprenants-disponibles">
+    <h2>Liste des apprenants disponibles</h2>
+    <ul class="list-group">
+        {% for apprenant in nonInscrits %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ path('show_apprenant', {'id':apprenant.id} ) }}"> {{ apprenant }} </a>
+            <a class="btn btn-outline-primary" href="{{ path('subscribe_session', {'session': session.id, 'apprenant' : apprenant.id}) }}">+</a> 
+        </li>
         {% endfor %}
     </ul>
-    <button type="button" class="btn btn-primary">
-        <a href="{{ path('signup_session', {'id': session.id}) }}">Inscrire un apprenant</a> 
-    </button>
 </div>
 
 <button type="button" class="btn btn-primary btn-edit">

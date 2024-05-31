@@ -16,6 +16,34 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findNonInscrits($session_id)
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        $qb = $sub;
+        // sélectionner tous les apprenants d'une session dont l'id est passé en paramètre
+        $qb->select('a')
+            ->from('App\Entity\Apprenant', 'a')
+            ->leftJoin('a.sessions', 'se')
+            ->where('se.id = :id');
+
+        $sub = $em->createQueryBuilder();
+        // sélectionner tous les apprenants qui ne SONT PAS (NOT IN) dans le résultat précédent
+        // on obtient donc les apprenants non inscrits pour une session définie
+        $sub->select('ap')
+            ->from('App\Entity\Apprenant', 'ap')
+            ->where(($sub->expr()->notIn('ap.id', $qb->getDQL())))
+            // requête paramétrée
+            ->setParameter('id', $session_id)
+            // trier la liste des apprenants sur le nom de famille
+            ->orderBy('ap.nom');
+        
+        // renvoyer le résultat
+        $query = $sub->getQuery();
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return Session[] Returns an array of Session objects
     //     */

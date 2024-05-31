@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Apprenant;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,39 +65,66 @@ class SessionController extends AbstractController
             ]);
         }
         
-        #[Route('/session/{id}/signup', name: 'signup_session')]
-        public function signup(Session $session, Request $request, EntityManagerInterface $entityManager): Response
-        {
-            // la méthode createForm permet de créer le formulaire
-            // on attribue au formulaire les propriétés de l'objet session nouvellement créé
-            $form = $this->createForm(SessionType::class, $session);
+        // #[Route('/session/{id}/signup', name: 'signup_session')]
+        // public function signup(Session $session, Request $request, EntityManagerInterface $entityManager): Response
+        // {
+        //     // la méthode createForm permet de créer le formulaire
+        //     // on attribue au formulaire les propriétés de l'objet session
+        //     $form = $this->createForm(SessionType::class, $session);
             
-            // on traite la soumission du formulaire
-            $form->handleRequest($request);
+        //     // on traite la soumission du formulaire
+        //     $form->handleRequest($request);
 
-            // si le formulaire a été soumis et qu'il est valide:
-                if ($form->isSubmitted() && $form->isValid()) {
+        //     // si le formulaire a été soumis et qu'il est valide:
+        //         if ($form->isSubmitted() && $form->isValid()) {
                 
-                    // alors on récupère les données du formulaire et on les transmet à l'objet Session
-                    $session = $form->getData();
+        //             // alors on récupère les données du formulaire et on les transmet à l'objet Session
+        //             $session = $form->getData();
                     
-                    // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
-                    $entityManager->persist($session);
+        //             // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+        //             $entityManager->persist($session);
                     
-                    // Doctrine exécute la requête (i.e. the INSERT query)
-                    $entityManager->flush();
+        //             // Doctrine exécute la requête (i.e. the INSERT query)
+        //             $entityManager->flush();
                     
-                    // on redirige vers la liste des sessions
-                    return $this->redirectToRoute('app_session');
-                }
+        //             // on redirige vers la liste des sessions
+        //             return $this->redirectToRoute('app_session');
+        //         }
             
-            
-            // on renvoie à la vue les données
-            return $this->render('session/signup.html.twig', [
-                'session' => $session,
-                'formSignUp' => $form
-            ]);
-        }      
+        //     // on renvoie à la vue les données
+        //     return $this->render('session/signup.html.twig', [
+        //         'session' => $session,
+        //         'formSignUp' => $form
+        //     ]);
+        // } 
+        
+        #[Route('/session/{session}/unsubscribe/{apprenant}', name: 'unsubscribe_session')]
+        public function unsubscribe(Session $session, Apprenant $apprenant, EntityManagerInterface $entityManager)
+        {
+            $session->removeApprenant($apprenant);
+
+            // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+            $entityManager->persist($session);
+            // Doctrine exécute la requête (i.e. the INSERT query)
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_session', ["id" => $session->getId()]);
+        }
+
+
+        #[Route('/session/{session}/subscribe/{apprenant}', name: 'subscribe_session')]
+        public function subscribe(Session $session, Apprenant $apprenant, EntityManagerInterface $entityManager)
+        {
+            $session->addApprenant($apprenant);
+
+            // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+            $entityManager->persist($session);
+            // Doctrine exécute la requête (i.e. the INSERT query)
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_session', ["id" => $session->getId()]);
+        }
+        
         
         #[Route('/session/{id}/delete', name: 'delete_session')]
         public function delete(Session $session, EntityManagerInterface $entityManager)
@@ -110,10 +139,12 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session): Response
+    public function show(Session $session, SessionRepository $sr): Response
     {
+        $nonInscrits = $sr->findNonInscrits($session->getId());
         return $this->render('session/show.html.twig', [
-            'session' => $session
+            'session' => $session,
+            'nonInscrits' => $nonInscrits
         ]);
     }
 }

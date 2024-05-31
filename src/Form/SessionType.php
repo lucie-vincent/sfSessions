@@ -43,10 +43,11 @@ class SessionType extends AbstractType
                     'class' => 'form-control' 
                 ]
             ])
-            ->add('apprenants', EntityType::class, [
-                'class' => Apprenant::class,
-                'multiple' => true
-            ])
+            // ->add('apprenants', EntityType::class, [
+            //     'class' => Apprenant::class,
+            //     // permet l'affichage de plusieurs
+            //     'multiple' => true
+            // ])
             // ->add('programmes', EntityType::class, [
             //     'class' => Programme::class,
             //     'choice_label' => 'id',
