@@ -50,14 +50,14 @@ class ApprenantType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('sessions', EntityType::class, [
-                'class' => Session::class,
-                'choice_label' => 'intitule',
-                'multiple' => true,
-                'attr' => [
-                    'class' => 'form-select'
-                ]
-            ])
+            // ->add('sessions', EntityType::class, [
+            //     'class' => Session::class,
+            //     'choice_label' => 'intitule',
+            //     'multiple' => true,
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ]
+            // ])
             ->add('Valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success btn-formulaire'

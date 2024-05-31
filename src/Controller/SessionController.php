@@ -32,45 +32,79 @@ class SessionController extends AbstractController
             // on crée un nouvel objet session
             $session = new Session();
         }
-
+        
         // la méthode createForm permet de créer le formulaire
         // on attribue au formulaire les propriétés de l'objet session nouvellement créé
         $form = $this->createForm(SessionType::class, $session);
-
+        
         // on traite la soumission du formulaire
         $form->handleRequest($request);
-
-        // si le formulaire a été soumis et qu'il est valide:
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            // alors on récupère les données du formulaire et on les transmet à l'objet Apprenant
-            $session = $form->getData();
-
-            // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
-            $entityManager->persist($session);
-
-            // Doctrine exécute la requête (i.e. the INSERT query)
-            $entityManager->flush();
-
-            // on redirige vers la liste des sessions
-            return $this->redirectToRoute('app_session');
-        }
-
-        // on renvoie à la vue les données
-        return $this->render('session/new.html.twig', [
-            'formAddSession' => $form,
-            'edit' => $session->getId()
-        ]);
-    }
-
-    #[Route('/session/{id}/delete', name: 'delete_session')]
-    public function delete(Session $session, EntityManagerInterface $entityManager)
-    {
-        // Doctrine prépare (persiste) la requête
-        $entityManager->remove($session);
-        // Doctrine exécute la requête : "DELETE FROM session WHERE session..."
-        $entityManager->flush();
         
+        // si le formulaire a été soumis et qu'il est valide:
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+                // alors on récupère les données du formulaire et on les transmet à l'objet session
+                $session = $form->getData();
+                
+                // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+                $entityManager->persist($session);
+                
+                // Doctrine exécute la requête (i.e. the INSERT query)
+                $entityManager->flush();
+                
+                // on redirige vers la liste des sessions
+                return $this->redirectToRoute('app_session');
+            }
+            
+            // on renvoie à la vue les données
+            return $this->render('session/new.html.twig', [
+                'formAddSession' => $form,
+                'edit' => $session->getId()
+            ]);
+        }
+        
+        #[Route('/session/{id}/signup', name: 'signup_session')]
+        public function signup(Session $session, Request $request, EntityManagerInterface $entityManager): Response
+        {
+            // la méthode createForm permet de créer le formulaire
+            // on attribue au formulaire les propriétés de l'objet session nouvellement créé
+            $form = $this->createForm(SessionType::class, $session);
+            
+            // on traite la soumission du formulaire
+            $form->handleRequest($request);
+
+            // si le formulaire a été soumis et qu'il est valide:
+                if ($form->isSubmitted() && $form->isValid()) {
+                
+                    // alors on récupère les données du formulaire et on les transmet à l'objet Session
+                    $session = $form->getData();
+                    
+                    // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
+                    $entityManager->persist($session);
+                    
+                    // Doctrine exécute la requête (i.e. the INSERT query)
+                    $entityManager->flush();
+                    
+                    // on redirige vers la liste des sessions
+                    return $this->redirectToRoute('app_session');
+                }
+            
+            
+            // on renvoie à la vue les données
+            return $this->render('session/signup.html.twig', [
+                'session' => $session,
+                'formSignUp' => $form
+            ]);
+        }      
+        
+        #[Route('/session/{id}/delete', name: 'delete_session')]
+        public function delete(Session $session, EntityManagerInterface $entityManager)
+        {
+            // Doctrine prépare (persiste) la requête
+            $entityManager->remove($session);
+            // Doctrine exécute la requête : "DELETE FROM session WHERE session..."
+            $entityManager->flush();
+            
         // on redirige vers la liste des sessions
         return $this->redirectToRoute('app_session');
     }
