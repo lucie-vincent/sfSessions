@@ -20,19 +20,19 @@
 </div>
 
 <h2>Sessions prévues</h2>
-<ul class="list-group">
+<ul class="list-group list-sessions-apprenant">
     {% for session in apprenant.sessions %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <b> {{ session}} </b> du <i> {{ session.dateDebut | date("d-m-Y") }} </i> au <i> {{ session.dateFin | date("d-m-Y") }} </i>
     </li>
     {% endfor %}
-    </ul>
+</ul>
 
-<button type="button" class="btn btn-primary">
+<button type="button" class="btn btn-primary btn-edit">
     <a href="{{ path('edit_apprenant', {'id': apprenant.id}) }}">Editer</a>
 </button>
 
-<button type="button" class="btn btn-primary">
+<button type="button" class="btn btn-primary btn-delete">
     <a href="{{ path('delete_apprenant', {'id': apprenant.id}) }}">Supprimer</a>
 </button>
 

@@ -51,10 +51,6 @@ class SessionType extends AbstractType
                     'class' => 'form-control' 
                 ]
             ])
-            // ->add('programmes', EntityType::class, [
-            //     'class' => Unite::class,
-            //     'choice_label' => 'intitule'
-            // ])
 
             // ->add('estCloturee', CheckboxType::class, [
             //     'required' => false,
