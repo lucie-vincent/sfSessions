@@ -13,11 +13,11 @@ form {
 }
 
 .btn-edit, .btn-delete {
-    margin-top: 0.5rem;
+    margin-top: 0.6rem;
 }
 
-.list-sessions-apprenant {
-    width: 50%;
+.list-sessions-apprenant, .list-apprenants-session, .list-unites-session {
+    width: 70%;
     min-width: 280px;
     margin: 0 auto;
 }

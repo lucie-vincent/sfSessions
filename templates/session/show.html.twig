@@ -5,7 +5,7 @@
 {% block body %}
 <h1>Détail de {{ session.intitule }}</h1>
 
-<table class="table table-hover">
+<table class="table table-hover list-unites-session">
     <thead>
         <tr>
             <th scope="col">Unité</th>
@@ -25,18 +25,18 @@
 
 <h2>Liste des inscrits</h2>
 <span>Nombre d'inscrits : {{ session.apprenants | length }} / {{ session.nbPlaces }} </span>
-<ul class="list-group">
+<ul class="list-group list-apprenants-session">
     {% for apprenant in session.apprenants %}
         
     <li class="list-group-item d-flex justify-content-between align-items-center"> <a href="{{ path('show_apprenant', {'id':apprenant.id} ) }}"> {{ apprenant }} </a>  </li>
     {% endfor %}
 </ul>
 
-<button type="button" class="btn btn-primary">
+<button type="button" class="btn btn-primary btn-edit">
     <a href="{{ path('edit_session', {'id': session.id}) }}">Editer</a>
 </button>
 
-<button type="button" class="btn btn-primary">
+<button type="button" class="btn btn-primary btn-delete">
     <a href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
 </button>
 
