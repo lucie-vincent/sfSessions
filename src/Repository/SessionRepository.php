@@ -44,6 +44,32 @@ class SessionRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findNonProgrammedUnites($session_id)
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        // première sous requête : sélectionner toutes les unités programmées pour une session
+        $qb = $sub;
+        $qb->select('u.id')
+            ->from('App\Entity\Unite', 'u')
+            ->innerJoin('App\Entity\Programme', 'p', 'WITH', 'u.id = p.unite' )
+            ->where('p.session = :id');
+        
+        // seconde requête : sélectionner toutes les unités qui ne sont pas programmées
+        $sub = $em->createQueryBuilder();
+        $sub->select('unite')
+            ->from('App\Entity\Unite', 'unite')
+            ->where($sub->expr()->notIn('unite.id', $qb->getDQL()))
+            ->setParameter('id', $session_id)
+            //  Trier la liste par intitulé
+            ->orderBy('unite.intitule');
+
+        // renvoyer le résultat
+        $query = $sub->getQuery();
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return Session[] Returns an array of Session objects
     //     */

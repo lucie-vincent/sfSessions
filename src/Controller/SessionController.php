@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
+use App\Entity\Programme;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
@@ -65,38 +66,11 @@ class SessionController extends AbstractController
             ]);
         }
         
-        // #[Route('/session/{id}/signup', name: 'signup_session')]
-        // public function signup(Session $session, Request $request, EntityManagerInterface $entityManager): Response
-        // {
-        //     // la méthode createForm permet de créer le formulaire
-        //     // on attribue au formulaire les propriétés de l'objet session
-        //     $form = $this->createForm(SessionType::class, $session);
+        #[Route('/session/{session}/schedule/{programme}')]
+        public function schedule(Session $session, Programme $programme, EntityManagerInterface $entityManager)
+        {
             
-        //     // on traite la soumission du formulaire
-        //     $form->handleRequest($request);
-
-        //     // si le formulaire a été soumis et qu'il est valide:
-        //         if ($form->isSubmitted() && $form->isValid()) {
-                
-        //             // alors on récupère les données du formulaire et on les transmet à l'objet Session
-        //             $session = $form->getData();
-                    
-        //             // on dit à Doctrine de persister càd de préparer la requête pour l'ajout en BDD
-        //             $entityManager->persist($session);
-                    
-        //             // Doctrine exécute la requête (i.e. the INSERT query)
-        //             $entityManager->flush();
-                    
-        //             // on redirige vers la liste des sessions
-        //             return $this->redirectToRoute('app_session');
-        //         }
-            
-        //     // on renvoie à la vue les données
-        //     return $this->render('session/signup.html.twig', [
-        //         'session' => $session,
-        //         'formSignUp' => $form
-        //     ]);
-        // } 
+        }
         
         #[Route('/session/{session}/unsubscribe/{apprenant}', name: 'unsubscribe_session')]
         public function unsubscribe(Session $session, Apprenant $apprenant, EntityManagerInterface $entityManager)
@@ -142,9 +116,12 @@ class SessionController extends AbstractController
     public function show(Session $session, SessionRepository $sr): Response
     {
         $nonInscrits = $sr->findNonInscrits($session->getId());
+        $nonProgrammed = $sr->findNonProgrammedUnites($session->getId());
+
         return $this->render('session/show.html.twig', [
             'session' => $session,
-            'nonInscrits' => $nonInscrits
+            'nonInscrits' => $nonInscrits,
+            'nonProgrammed' => $nonProgrammed
         ]);
     }
 }

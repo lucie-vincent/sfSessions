@@ -60,6 +60,28 @@
     </ul>
 </div>
 
+<div class="programmer-unites">
+    <h2>Unités disponibles</h2>
+    <table class="table table-hover list-unites-session">
+        <thead>
+            <tr>
+                <th scope="col">Unité</th>
+                <th scope="col">Durée</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for programme in nonProgrammed %}
+                <tr>
+                    <td class="table-primary">{{ programme }}  </td>
+                    <td class="table-primary"> {{ programme }} jour(s) </td>
+                    <td> <a class="btn btn-outline-primary" href="">+</a> </td>
+                </tr>
+                {% endfor %} 
+        </tbody>
+    </table>
+</div>
+
 <button type="button" class="btn btn-primary btn-edit">
     <a href="{{ path('edit_session', {'id': session.id}) }}">Editer</a>
 </button>
