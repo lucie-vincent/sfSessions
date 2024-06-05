@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Apprenant;
 use App\Entity\Programme;
 use App\Entity\Session;
+use App\Form\ProgrammeType;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManager;
@@ -66,10 +67,11 @@ class SessionController extends AbstractController
             ]);
         }
         
-        #[Route('/session/{session}/schedule/{programme}')]
+        #[Route('/session/{session}/schedule/{programme}', name:'schedule_session')]
         public function schedule(Session $session, Programme $programme, EntityManagerInterface $entityManager)
         {
             
+
         }
         
         #[Route('/session/{session}/unsubscribe/{apprenant}', name: 'unsubscribe_session')]
@@ -115,6 +117,7 @@ class SessionController extends AbstractController
     #[Route('/session/{id}', name: 'show_session')]
     public function show(Session $session, SessionRepository $sr): Response
     {
+        // on récupère les listes d'apprenants non inscrits et modules non programmés
         $nonInscrits = $sr->findNonInscrits($session->getId());
         $nonProgrammed = $sr->findNonProgrammedUnites($session->getId());
 

@@ -74,8 +74,13 @@
                 {% for programme in nonProgrammed %}
                 <tr>
                     <td class="table-primary">{{ programme }}  </td>
-                    <td class="table-primary"> {{ programme }} jour(s) </td>
-                    <td> <a class="btn btn-outline-primary" href="">+</a> </td>
+                    <td class="table-primary">
+                        <form action="{{ path('schedule_session', {'session': session.id, 'programme': programme.id}) }}" method="POST">
+                            <input type="number">
+                            <input type="submit" value="OK">
+                        </form>
+                    </td>
+                    <td> <a class="btn btn-outline-primary" href="{{ path('schedule_session', {'session': session.id, 'programme' : programme.id} ) }}">+</a> </td>
                 </tr>
                 {% endfor %} 
         </tbody>
